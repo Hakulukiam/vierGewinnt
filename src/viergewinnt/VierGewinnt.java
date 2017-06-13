@@ -13,7 +13,7 @@ public class VierGewinnt extends Applet implements WindowListener {
 
    public static void main(java.lang.String[] args) {
       VierGewinnt applet = new VierGewinnt();
-      Frame w = new Frame("Applet");
+      Frame w = new Frame("Vier Gewinnt");
       w.addWindowListener(applet);
       w.add("Center", applet);
       w.setSize(150, 50);
