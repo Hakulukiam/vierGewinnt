@@ -13,33 +13,44 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class VierGewinnt extends Applet implements WindowListener {
     
    private static Label upperLabel;
-   private static Panel buttonPanel;   
-   private static Frame w;
+   private static JPanel buttonPanel;
+   private static JPanel playPanel;   
+   private static JFrame w;
    private static Font font;
+   private static JButton[][] field;
+   private static final Integer[] SIZE = {7,6};
     
    public static void main(java.lang.String[] args) {      
       VierGewinnt applet = new VierGewinnt();
-      font = new Font ("Sans Serif", 1, 25);
-      w = new Frame("Vier Gewinnt");
+      font = new Font ("Tahoma", Font.BOLD, 25);
+      field = new JButton[SIZE[0]][SIZE[1]];
+      w = new JFrame("Vier Gewinnt");
       w.addWindowListener(applet);         
-      w.setSize(940, 629);
-      w.setResizable(false);      
+      w.setSize(940, 630);
+      w.setResizable(false);
       
-      upperLabel = new Label();        
+      upperLabel = new Label();   
       upperLabel.setAlignment(Label.CENTER);
       upperLabel.setSize(250,100);
-      upperLabel.setLocation(702, 0);
-      upperLabel.setBackground(Color.GRAY);
-      upperLabel.setForeground(Color.WHITE);
+      upperLabel.setLocation(700, 0);
       upperLabel.setFont(font);
       upperLabel.setText("Vier Gewinnt!");
       
-      Button newGameButton = new Button("Neues Spiel");
-      Button closeButton = new Button("Beenden");
+      JButton newGameButton = new JButton("Neues Spiel");
+      newGameButton.setBackground(new Color(255, 140, 0));
+      newGameButton.setForeground(Color.WHITE);
+      newGameButton.setFocusPainted(false);
+      newGameButton.setFont(new Font("Tahoma", Font.BOLD, 12));      
+      JButton closeButton = new JButton("Beenden");
+      closeButton.setBackground(new Color(255, 140, 0));
+      closeButton.setForeground(Color.WHITE);
+      closeButton.setFocusPainted(false);
+      closeButton.setFont(new Font("Tahoma", Font.BOLD, 12));
       
 
       newGameButton.addActionListener((ActionEvent e) -> {
@@ -50,7 +61,7 @@ public class VierGewinnt extends Applet implements WindowListener {
           w.dispose();
       });
       
-      buttonPanel = new Panel();
+      buttonPanel = new JPanel();
       buttonPanel.setLayout(new GridBagLayout());
       GridBagConstraints gbc = new GridBagConstraints();
       gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -64,30 +75,62 @@ public class VierGewinnt extends Applet implements WindowListener {
       gbc.gridy = 1;
       buttonPanel.add(closeButton,gbc);      
       buttonPanel.setSize(240, 200);
-      buttonPanel.setLocation(702, 400);
-      buttonPanel.setBackground(Color.GRAY);
+      buttonPanel.setLocation(700, 400);
       
+      playPanel = new JPanel();
+      playPanel.setLayout(new GridBagLayout());      
+      playPanel.setSize(700, 600);
+      playPanel.setLocation(0, 0);    
+      gbc = new GridBagConstraints();
+      gbc.ipadx = 65;
+      gbc.ipady = 90;
+      
+      for(int i=0; i<field.length; i++) {
+        for(int j=0; j<field[i].length; j++) {
+            field[i][j] = new JButton();
+            field[i][j].setBackground(Color.WHITE);            
+            gbc.gridx = i;
+            gbc.gridy = j;
+            final int y = j;
+            final int x = i;
+            field[i][j].addActionListener((ActionEvent e) -> {
+                if(field[x][y].getBackground() == Color.RED){
+                    field[x][y].setBackground(Color.YELLOW);
+                }else{
+                    field[x][y].setBackground(Color.RED);
+                }                
+            });
+            playPanel.add(field[i][j], gbc);
+        }
+      }   
+           
       w.add(buttonPanel);
       w.add(upperLabel);
-      w.add(applet);
-      w.setVisible(true);
+      w.add(playPanel);        
+      w.add(applet);   
       
+      JPanel glass = new JPanel(){          
+          @Override
+          public void paint(Graphics g) {
+              Image image;
+              try {
+                  image = ImageIO.read(new File("vierGewinntBoardSmall.png"));
+                  g.drawImage(image, 0, 0, null);
+              } catch (IOException ex) {
+                  Logger.getLogger(VierGewinnt.class.getName()).log(Level.SEVERE, null, ex);
+              } 
+          }
+      };
+      glass.setSize(940, 630);
+      glass.setLocation(0, 0);    
+      w.setGlassPane(glass);
+      glass.setVisible(true);  
+      glass.setOpaque(false);    
+       
+      //Show the window.
+      w.setVisible(true);      
       applet.init();
       applet.start();
-   }
-
-   @Override
-   public void paint(Graphics g) {
-      super.paint(g);
-      Image image;
-       try {
-           image = ImageIO.read(new File("vierGewinntBoardSmall.png"));
-           g.drawImage(image, 0, 0, null);
-       } catch (IOException ex) {
-           Logger.getLogger(VierGewinnt.class.getName()).log(Level.SEVERE, null, ex);
-       }
-       g.setColor(Color.gray);
-       g.fillRect(699, 0, 250, 600);       
    }
 
    @Override
