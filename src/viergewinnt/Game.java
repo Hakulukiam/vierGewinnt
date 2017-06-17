@@ -67,20 +67,20 @@ public class Game {
     }
        
     public Boolean hasWon(Integer x, Integer y){
-        if(this.checkRows() == true)return true;
-        if(this.checkCols() == true)return true;
-        return this.checkDiagonals() == true;
+        if(this.checkRows(x,y) == true)return true;
+        if(this.checkCols(x,y) == true)return true;
+        return this.checkDiagonals(x,y) == true;
     }
     
-    private Boolean checkRows(){
+    private Boolean checkRows(Integer x, Integer y){
         return true;
     }
     
-    private Boolean checkCols(){
+    private Boolean checkCols(Integer x, Integer y){
         return true;
     }
     
-    private Boolean checkDiagonals(){
+    private Boolean checkDiagonals(Integer x, Integer y){
         return true;
     }
     
