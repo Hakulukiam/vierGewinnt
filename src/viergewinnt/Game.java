@@ -110,7 +110,18 @@ public class Game {
     }
     
     private Boolean checkRows(Integer x, Integer y){
-        return false;
+                int d = 0;
+           for(int i = 0; i < 8; i++) {
+           if(field[i][y] == currentTurn) {
+              d++;
+           }else{
+              d = 0;
+           }  
+           if(d >= 4){
+               return true;
+            }                                                                            
+        }   
+           return false;        
     }
     
     private Boolean checkCols(Integer x, Integer y){

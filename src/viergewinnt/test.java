@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package viergewinnt;
+/*package viergewinnt;
 
 /**
  *
  * @author Marcel
  */
-public class test {
+/*public class test {
  private Boolean checkRows(Integer x, Integer y){
         
            int d = 0;
@@ -24,4 +24,4 @@ public class test {
             }                                                                            
         }   
            return false;
-    }
+    }*/
