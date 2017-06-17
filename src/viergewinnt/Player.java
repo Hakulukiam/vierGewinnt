@@ -11,32 +11,22 @@ package viergewinnt;
  */
 public class Player {
     
-    private Player playerOne;
-    private Player playerTwo;
-    private Player score;
-    
-    public Player getPlayerOne() {
-        return this.playerOne;
+    private Integer score;
+    private String name;
+
+    public Integer getScore() {
+        return score;
     }
-    
-    public Player getPlayerTwo() {
-        return this.playerTwo;
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
-    
-    public Player getScore() {
-        return this.score;
+
+    public String getName() {
+        return name;
     }
-    
-    public void setPlayerOne(Player e) {
-        this.playerOne = e;
-    }
-    
-     public void setPlayerTwo(Player e) {
-        this.playerTwo = e;
-    }
-     
-      public void setScore(Player e) {
-        this.score = e;
-    }
-      
+
+    public void setName(String name) {
+        this.name = name;
+    }   
 }
