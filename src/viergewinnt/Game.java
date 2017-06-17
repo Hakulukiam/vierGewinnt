@@ -186,7 +186,7 @@ public class Game {
            x = 6;
            y = (x+y) - 6;
            for(int i = 0; i <= 5; i++) {
-                if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {           
+                if (SIZE[0] > x-i && SIZE[1] > y+i && y+i >= 0 && x-i >= 0) {           
                     if(field[x-i][y+i].equals(currentTurn)) {
                         d++;
                     }else{
@@ -200,10 +200,7 @@ public class Game {
             x = x+y;
             y = 0;
             for(int i = 0; i <= 5; i++) {
-                if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {  
-                     System.out.println("i: "+i);
-                     System.out.println("x: "+(x+i));
-                     System.out.println("y: "+(y+i));
+                if (SIZE[0] > x+i && SIZE[1] > y-i && y-i >= 0 && x+i >= 0) {  
                     if(field[x-i][y+i].equals(currentTurn)) {
                         d++;
                     }else{
