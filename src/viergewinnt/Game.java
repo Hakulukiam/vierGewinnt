@@ -149,11 +149,15 @@ public class Game {
         for(int i = 0; i < 5; i++) {
             if(x-y <= 0) {
                 x = 0;
-                y = (x-y) * (-1);               
-                if(field[x+i][y+i].equals(currentTurn)) {
-                    d++;
+                y = (x-y) * (-1); 
+                if(field[x+i][y+i] != null){
+                    if(field[x+i][y+i].equals(currentTurn)) {
+                        d++;
+                    }else{
+                        d = 0;
+                    }
                 }else{
-                    d = 0;
+                    break;
                 }          
             }  
             if(d >= 4){
