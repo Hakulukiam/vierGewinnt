@@ -25,6 +25,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -33,14 +34,23 @@ import javax.swing.JPanel;
 public class GUI extends Applet implements WindowListener{
     
     private Game game;
-    private static Label upperLabel;
+    private static JFrame window;     
     private static JPanel buttonPanel;
-    private static JPanel playPanel;   
-    private static JFrame window;    
+    private static JPanel playPanel;  
+    private static JPanel infoPanel;
+    private static JPanel inputPanel;   
+    private static Label upperLabel;
+    private static Label turnLabel;
+    private static Label scorep1; 
+    private static Label scorep2; 
+    private static Label p1; 
+    private static Label p2; 
     private static JButton newGameButton;
     private static JButton startGameButton;
     private static JButton resetGameButton;
     private static JButton closeButton;
+    private static JTextField playerOneName;
+    private static JTextField playerTwoName;
     private static Font font;
     private static JButton[][] field;
 
@@ -74,6 +84,17 @@ public class GUI extends Applet implements WindowListener{
         playPanel.setLayout(new GridBagLayout());      
         playPanel.setSize(700, 600);
         playPanel.setLocation(0, 0);
+        infoPanel = new JPanel();
+        infoPanel.setLayout(new GridBagLayout());      
+        infoPanel.setSize(240, 300);
+        infoPanel.setLocation(700, 0);
+        infoPanel.setVisible(false);
+        inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());      
+        inputPanel.setSize(240, 300);
+        inputPanel.setLocation(700, 100);
+        inputPanel.setVisible(false);
+        
         JPanel glass = new JPanel(){            
             @Override
             public void paint(Graphics g) {
@@ -93,13 +114,27 @@ public class GUI extends Applet implements WindowListener{
         glass.setOpaque(false);       
     }
     
-    private void createComponents(){
+    private void createComponents(){       
         upperLabel = new Label();   
         upperLabel.setAlignment(Label.CENTER);
         upperLabel.setSize(250,100);
         upperLabel.setLocation(700, 0);
         upperLabel.setFont(font);
         upperLabel.setText("Vier Gewinnt!");
+        
+        turnLabel = new Label();
+        turnLabel.setAlignment(Label.CENTER);
+        turnLabel.setFont(new Font("Tahoma", Font.BOLD, 20));        
+        
+        scorep1 = new Label();   
+        scorep1.setAlignment(Label.CENTER);
+        scorep1.setFont(new Font("Tahoma", Font.BOLD, 20));
+        scorep1.setForeground(Color.RED);        
+        
+        scorep2 = new Label();   
+        scorep2.setAlignment(Label.CENTER);
+        scorep2.setFont(new Font("Tahoma", Font.BOLD, 20));
+        scorep2.setForeground(Color.YELLOW);
 
         newGameButton = new JButton("Neues Spiel");
         newGameButton.setBackground(new Color(255, 140, 0));
@@ -127,7 +162,56 @@ public class GUI extends Applet implements WindowListener{
         resetGameButton.setFont(new Font("Tahoma", Font.BOLD, 12));
         resetGameButton.setVisible(false);
         
+        //Input Panel
         GridBagConstraints gbc = new GridBagConstraints();
+        playerOneName = new JTextField("Player 1");
+        Label p1Label = new Label("Spieler 1 Name:");   
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipadx = 90;
+        gbc.ipady = 15;
+        gbc.gridx = 0;
+        gbc.gridy = 0;          
+        inputPanel.add(p1Label,gbc);
+        gbc.gridy = 1;
+        inputPanel.add(playerOneName,gbc);        
+        Label p2Label = new Label("Spieler 2 Name:"); 
+        gbc.insets = new Insets(10,0,0,0);
+        gbc.gridy = 2;
+        playerTwoName = new JTextField("Player 2");
+        inputPanel.add(p2Label,gbc);
+        gbc.gridy = 3;
+        inputPanel.add(playerTwoName,gbc);    
+        
+        //Score Panel
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        p1 = new Label("Spieler 1"); 
+        p1.setAlignment(Label.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 0; 
+        infoPanel.add(p1,gbc);        
+        Label space = new Label("  "); 
+        gbc.gridx = 1; 
+        infoPanel.add(space,gbc);
+        p2 = new Label("Spieler 2");
+        p2.setAlignment(Label.CENTER);
+        gbc.gridx = 2;
+        infoPanel.add(p2,gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        infoPanel.add(scorep1,gbc);        
+        gbc.gridx = 1; 
+        infoPanel.add(space,gbc);      
+        gbc.gridx = 2; 
+        infoPanel.add(scorep2,gbc);        
+        gbc.gridwidth = 3;
+        gbc.gridx = 0;
+        gbc.gridy = 3; 
+        infoPanel.add(turnLabel,gbc);  
+        
+        
+        //Button Panel
+        gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 3;
         gbc.ipadx = 80;
@@ -145,6 +229,7 @@ public class GUI extends Applet implements WindowListener{
         gbc.gridy = 3;
         buttonPanel.add(closeButton,gbc);
         
+        //Play Panel
         gbc = new GridBagConstraints();
         gbc.ipadx = 65;
         gbc.ipady = 90;
@@ -162,17 +247,24 @@ public class GUI extends Applet implements WindowListener{
     
     private void addEvents(){
         newGameButton.addActionListener((ActionEvent e) -> {
+           infoPanel.setVisible(false);
+           inputPanel.setVisible(true);
            newGameButton.setVisible(false);
            resetGameButton.setVisible(false);
            startGameButton.setVisible(true);
+           upperLabel.setText("Vier Gewinnt!");
            game.newGame(); 
         });
         
         startGameButton.addActionListener((ActionEvent e) -> {
+            infoPanel.setVisible(true);
             newGameButton.setVisible(true);
+            inputPanel.setVisible(false);
             startGameButton.setVisible(false);
             resetGameButton.setVisible(true);
-            game.startGame();
+            upperLabel.setText("Score:");
+            this.updateScore();
+            game.startGame();            
         });
 
         closeButton.addActionListener((ActionEvent e) -> {
@@ -199,6 +291,8 @@ public class GUI extends Applet implements WindowListener{
     private void initComponents(){
         window.add(buttonPanel);
         window.add(upperLabel);
+        window.add(infoPanel);
+        window.add(inputPanel);
         window.add(playPanel);        
         window.add(this);
         window.setVisible(true);      
@@ -224,8 +318,22 @@ public class GUI extends Applet implements WindowListener{
         }    
     }
     
-    public void updateScore(){
+    public void newGame(){
         
+    }
+    
+    public void setPlayer(){
+        if(this.game.getCurrentTurn() == 1){
+            turnLabel.setText(game.getPlayerOne().getName()+" ist am Zug");
+        }
+        if(this.game.getCurrentTurn() == 2){
+            turnLabel.setText(game.getPlayerTwo().getName()+" ist am Zug");
+        }
+    }
+    
+    public void updateScore(){
+        scorep1.setText(this.game.getPlayerOne().getScore().toString());
+        scorep2.setText(this.game.getPlayerTwo().getScore().toString());
     }
 
     @Override

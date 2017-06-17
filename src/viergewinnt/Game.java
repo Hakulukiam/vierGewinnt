@@ -6,7 +6,6 @@
 package viergewinnt;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -17,17 +16,21 @@ public class Game {
     private Player playerOne;
     private Player playerTwo;
     private Integer currentTurn;
-    private GUI gui;
-    private Integer[][] field;
+    private final GUI gui;
+    private final Integer[][] field;
     public final Integer[] SIZE = {7,6};
 
     public Game(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
-        this.currentTurn = 1;
+        this.currentTurn = 0;
         this.field = new Integer[SIZE[0]][SIZE[1]];
         this.resetField();
         this.gui = new GUI(this);
+    }
+    
+    public Integer getCurrentTurn() {
+        return currentTurn;
     }
     
     public Player getPlayerOne() {
@@ -51,15 +54,17 @@ public class Game {
     }
     
     public void newGame(){
-        
+        gui.newGame();
+        this.currentTurn = 0;
     }
     
     public void startGame(){
-        
+        this.currentTurn = 1;
+        gui.setPlayer();
     }
     
     public void makeMove(Integer x, Integer y){
-        if(isValidMove()){
+        if(isValidMove() && this.currentTurn != 0){
             field[x][y] = this.currentTurn;
             gui.updateGUI();
             if(this.hasWon(x,y)){
@@ -71,6 +76,7 @@ public class Game {
                 gui.updateScore();
                 this.resetField();
                 gui.updateGUI();
+                this.switchPlayer(); 
             }else{
                 this.switchPlayer(); 
             }
@@ -118,5 +124,6 @@ public class Game {
         }else{
             this.currentTurn = 1;
         }
+        gui.setPlayer();
     }  
 }
