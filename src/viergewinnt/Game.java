@@ -18,14 +18,15 @@ public class Game {
     private Integer currentTurn;
     private GUI gui;
     private Integer[][] field;
-    private static final Integer[] SIZE = {7,6};
+    public final Integer[] SIZE = {7,6};
 
     public Game(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.currentTurn = 1;
         this.field = new Integer[SIZE[0]][SIZE[1]];
-        Arrays.fill(this.field, 0);
+        for (Integer[] row: this.field)
+            Arrays.fill(row, 0);
         this.gui = new GUI(this);
     }
     
