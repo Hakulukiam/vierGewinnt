@@ -6,6 +6,7 @@
 package viergewinnt;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -25,8 +26,7 @@ public class Game {
         this.playerTwo = playerTwo;
         this.currentTurn = 1;
         this.field = new Integer[SIZE[0]][SIZE[1]];
-        for (Integer[] row: this.field)
-            Arrays.fill(row, 0);
+        this.resetField();
         this.gui = new GUI(this);
     }
     
@@ -50,6 +50,14 @@ public class Game {
         return true;
     }
     
+    public void newGame(){
+        
+    }
+    
+    public void startGame(){
+        
+    }
+    
     public void makeMove(Integer x, Integer y){
         if(isValidMove()){
             field[x][y] = this.currentTurn;
@@ -60,10 +68,26 @@ public class Game {
                 }else if(currentTurn == 2){
                     playerTwo.setScore(playerTwo.getScore() + 1);
                 }
+                gui.updateScore();
+                this.resetField();
+                gui.updateGUI();
             }else{
                 this.switchPlayer(); 
             }
         }       
+    }
+    
+    private void resetField(){
+        for (Integer[] row: this.field)
+            Arrays.fill(row, 0);
+    }
+    
+    public void reset(){
+        this.resetField();
+        playerOne.setScore(0);
+        playerTwo.setScore(0);
+        gui.updateScore();
+        gui.updateGUI();
     }
        
     public Boolean hasWon(Integer x, Integer y){
@@ -73,15 +97,15 @@ public class Game {
     }
     
     private Boolean checkRows(Integer x, Integer y){
-        return true;
+        return false;
     }
     
     private Boolean checkCols(Integer x, Integer y){
-        return true;
+        return false;
     }
     
     private Boolean checkDiagonals(Integer x, Integer y){
-        return true;
+        return false;
     }
     
     public Integer getCurrentFieldStatus(Integer x, Integer y){
@@ -94,8 +118,5 @@ public class Game {
         }else{
             this.currentTurn = 1;
         }
-    }
-    
-    
-    
+    }  
 }

@@ -39,6 +39,7 @@ public class GUI extends Applet implements WindowListener{
     private static JFrame window;    
     private static JButton newGameButton;
     private static JButton startGameButton;
+    private static JButton resetGameButton;
     private static JButton closeButton;
     private static Font font;
     private static JButton[][] field;
@@ -116,7 +117,15 @@ public class GUI extends Applet implements WindowListener{
         startGameButton.setBackground(new Color(255, 140, 0));
         startGameButton.setForeground(Color.WHITE);
         startGameButton.setFocusPainted(false);
-        startGameButton.setFont(new Font("Tahoma", Font.BOLD, 12)); 
+        startGameButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+        startGameButton.setVisible(false);
+        
+        resetGameButton = new JButton("Reset Score");
+        resetGameButton.setBackground(new Color(255, 140, 0));
+        resetGameButton.setForeground(Color.WHITE);
+        resetGameButton.setFocusPainted(false);
+        resetGameButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+        resetGameButton.setVisible(false);
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -128,6 +137,12 @@ public class GUI extends Applet implements WindowListener{
         buttonPanel.add(newGameButton,gbc);
         gbc.insets = new Insets(10,0,0,0);
         gbc.gridy = 1;
+        buttonPanel.add(startGameButton,gbc);
+        gbc.insets = new Insets(10,0,0,0);
+        gbc.gridy = 2;
+        buttonPanel.add(resetGameButton,gbc);
+        gbc.insets = new Insets(10,0,0,0);
+        gbc.gridy = 3;
         buttonPanel.add(closeButton,gbc);
         
         gbc = new GridBagConstraints();
@@ -141,28 +156,32 @@ public class GUI extends Applet implements WindowListener{
                gbc.gridx = i;
                gbc.gridy = j;
                playPanel.add(field[i][j],gbc);
-               /*
-               final int y = j;
-               final int x = i;
-               field[i][j].addActionListener((ActionEvent e) -> {
-                   if(field[x][y].getBackground() == Color.RED){
-                       field[x][y].setBackground(Color.YELLOW);
-                   }else{
-                       field[x][y].setBackground(Color.RED);
-                   }                
-               });*/
             }
         }
     }
     
     private void addEvents(){
         newGameButton.addActionListener((ActionEvent e) -> {
-           //this.newGame(); 
+           newGameButton.setVisible(false);
+           resetGameButton.setVisible(false);
+           startGameButton.setVisible(true);
+           game.newGame(); 
+        });
+        
+        startGameButton.addActionListener((ActionEvent e) -> {
+            newGameButton.setVisible(true);
+            startGameButton.setVisible(false);
+            resetGameButton.setVisible(true);
+            game.startGame();
         });
 
         closeButton.addActionListener((ActionEvent e) -> {
             window.dispose();
             System.exit(0);
+        });
+        
+        resetGameButton.addActionListener((ActionEvent e) -> {            
+            game.reset();
         });
         
         for(int i=0; i<field.length; i++) {
@@ -204,6 +223,10 @@ public class GUI extends Applet implements WindowListener{
             }
         }    
     }
+    
+    public void updateScore(){
+        
+    }
 
     @Override
     public void windowOpened(WindowEvent we) {
@@ -212,7 +235,8 @@ public class GUI extends Applet implements WindowListener{
 
     @Override
     public void windowClosing(WindowEvent we) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        window.dispose();
+        System.exit(0);
     }
 
     @Override

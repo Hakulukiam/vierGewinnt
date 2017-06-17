@@ -18,6 +18,7 @@ public class Player {
     public Player(Integer playerNumber, String name) {
         this.playerNumber = playerNumber;
         this.name = name;
+        this.score = 0;
     }
 
     public Integer getScore() {
