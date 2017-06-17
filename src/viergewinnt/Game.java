@@ -79,7 +79,6 @@ public class Game {
                 break;
             }
         } 
-        System.out.println("x: "+x+" y: "+y);
         if(isValidMove(x, y) && this.currentTurn != 0){
             field[x][y] = this.currentTurn;
             gui.updateGUI();
