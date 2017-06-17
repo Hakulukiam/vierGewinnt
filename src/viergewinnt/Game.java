@@ -177,7 +177,9 @@ public class Game {
             if(d >= 4){
                 return true;
             }
-        }    
+        }
+        
+        d = 0;
 
         //Right to Left 
         if(x+y >= 6){            
