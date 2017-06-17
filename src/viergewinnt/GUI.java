@@ -141,6 +141,7 @@ public class GUI extends Applet implements WindowListener{
                gbc.gridx = i;
                gbc.gridy = j;
                playPanel.add(field[i][j],gbc);
+               /*
                final int y = j;
                final int x = i;
                field[i][j].addActionListener((ActionEvent e) -> {
@@ -149,7 +150,7 @@ public class GUI extends Applet implements WindowListener{
                    }else{
                        field[x][y].setBackground(Color.RED);
                    }                
-               });
+               });*/
             }
         }
     }
@@ -163,6 +164,17 @@ public class GUI extends Applet implements WindowListener{
             window.dispose();
             System.exit(0);
         });
+        
+        for(int i=0; i<field.length; i++) {
+            for(int j=0; j<field[i].length; j++) {
+               final int y = j;
+               final int x = i;
+               field[i][j].addActionListener((ActionEvent e) -> {
+                    game.makeMove(x,y);              
+               });
+            }
+        }
+        
     }
     
     private void initComponents(){
@@ -173,6 +185,24 @@ public class GUI extends Applet implements WindowListener{
         window.setVisible(true);      
         this.init();
         this.start();
+    }
+    
+    public void updateGUI(){
+        for(int i=0; i<field.length; i++) {
+            for(int j=0; j<field[i].length; j++) {
+                switch(game.getCurrentFieldStatus(i,j)){
+                    case 0:
+                        field[i][j].setBackground(Color.WHITE);
+                        break;
+                    case 1:
+                        field[i][j].setBackground(Color.RED);
+                        break;                    
+                    case 2:
+                        field[i][j].setBackground(Color.YELLOW);
+                        break;
+                }                         
+            }
+        }    
     }
 
     @Override

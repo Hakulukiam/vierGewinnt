@@ -50,14 +50,13 @@ public class Game {
         return true;
     }
     
-    public void makeMove(){
-        
+    public void makeMove(Integer x, Integer y){
+        if(isValidMove()){
+            field[x][y] = this.currentTurn;
+            gui.updateGUI();
+        }       
     }
-    
-    public void updateGUI(){
-        
-    }
-    
+       
     public Integer hasWon(Integer[] move){
         return 1;
     }
@@ -72,6 +71,10 @@ public class Game {
     
     private Integer checkDiagonals(){
         return 1;
+    }
+    
+    public Integer getCurrentFieldStatus(Integer x, Integer y){
+        return field[x][y];
     }
     
     private Integer switchPlayer(){
