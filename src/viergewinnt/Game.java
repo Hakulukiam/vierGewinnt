@@ -15,7 +15,7 @@ public class Game {
     
     private Player playerOne;
     private Player playerTwo;
-    private Player currentTurn;
+    private Integer currentTurn;
     private GUI gui;
     private Integer[][] field;
     private static final Integer[] SIZE = {7,6};
@@ -23,9 +23,10 @@ public class Game {
     public Game(Player playerOne, Player playerTwo) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
+        this.currentTurn = 1;
         this.field = new Integer[SIZE[0]][SIZE[1]];
         Arrays.fill(this.field, 0);
-        this.gui = new GUI();
+        this.gui = new GUI(this);
     }
     
     public Player getPlayerOne() {
@@ -46,6 +47,38 @@ public class Game {
     
     public Boolean isValidMove(){
         return true;
+    }
+    
+    public void makeMove(){
+        
+    }
+    
+    public void updateGUI(){
+        
+    }
+    
+    public Integer hasWon(Integer[] move){
+        return 1;
+    }
+    
+    private Integer checkRows(){
+        return 1;
+    }
+    
+    private Integer checkCols(){
+        return 1;
+    }
+    
+    private Integer checkDiagonals(){
+        return 1;
+    }
+    
+    private Integer switchPlayer(){
+        if(this.currentTurn == 1){
+            return 2;           
+        }else{
+            return 1;
+        }
     }
     
     

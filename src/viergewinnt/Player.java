@@ -11,8 +11,14 @@ package viergewinnt;
  */
 public class Player {
     
+    private final Integer playerNumber;
     private Integer score;
     private String name;
+
+    public Player(Integer playerNumber, String name) {
+        this.playerNumber = playerNumber;
+        this.name = name;
+    }
 
     public Integer getScore() {
         return score;

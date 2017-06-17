@@ -10,5 +10,10 @@ package viergewinnt;
  * @author Marcel
  */
 public class GUI {
+    private Game game;
+
+    public GUI(Game game) {
+        this.game = game;
+    }
     
 }
