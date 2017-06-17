@@ -145,19 +145,21 @@ public class Game {
     }
     
     private Boolean checkDiagonals(Integer x, Integer y){
-        int d = 0;     
+        int d = 0;    
+        int rel_x;
+        int rel_y;
         //Left to Right
         if(x-y <= 0) {  
-            y = (x-y) * (-1);            
-            x = 0;              
+            rel_y = (x-y) * (-1);            
+            rel_x = 0;              
         }else{
-            x = x-y;
-            y = 0;                                    
+            rel_x = x-y;
+            rel_y = 0;                                    
         }
         
         for(int i = 0; i <= 5; i++) {
-           if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {          
-                if(field[x+i][y+i].equals(currentTurn)) {
+           if (SIZE[0] > rel_x+i && SIZE[1] > rel_y+i && rel_y+i >= 0 && rel_x+i >= 0) {          
+                if(field[rel_x+i][rel_y+i].equals(currentTurn)) {
                     d++;
                 }else{
                     d = 0;
@@ -172,16 +174,16 @@ public class Game {
 
         //Right to Left 
         if(x+y >= 6){            
-            y = (x+y) - 6;          
-            x = 6;
+            rel_y = (x+y) - 6;          
+            rel_x = 6;
         }else{
-            x = x+y;
-            y = 0; 
+            rel_x = x+y;
+            rel_y = 0; 
         }
         for(int i = 0; i <= 5; i++) {
-            if (SIZE[0] > x-i && SIZE[1] > y+i && y+i >= 0 && x-i >= 0) {  
-                System.out.println("x: "+(x-i)+" | y: "+(y+i)+" -> "+field[x-i][y+i]+" == "+currentTurn);
-                if(field[x-i][y+i].equals(currentTurn)) {
+            if (SIZE[0] > rel_x-i && SIZE[1] > rel_y+i && y+i >= 0 && rel_x-i >= 0) {  
+                System.out.println("x: "+(rel_x-i)+" | y: "+(rel_y+i)+" -> "+field[rel_x-i][rel_y+i]+" == "+currentTurn);
+                if(field[rel_x-i][rel_y+i].equals(currentTurn)) {
                     d++;
                 }else{
                     d = 0;
