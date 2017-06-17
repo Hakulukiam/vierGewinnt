@@ -10,9 +10,8 @@ public class VierGewinnt{
     public static Game viergewinnt;
 
     public static void main(java.lang.String[] args) {
-        Player p1 = new Player(1,"Markus");
-        Player p2 = new Player(2,"Marcel");
-        viergewinnt = new Game(p1,p2);
+        
+        viergewinnt = new Game();
 
     }    
 }

@@ -20,9 +20,7 @@ public class Game {
     private final Integer[][] field;
     public final Integer[] SIZE = {7,6};
 
-    public Game(Player playerOne, Player playerTwo) {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
+    public Game() {
         this.currentTurn = 0;
         this.field = new Integer[SIZE[0]][SIZE[1]];
         this.resetField();
@@ -53,12 +51,18 @@ public class Game {
         return true;
     }
     
+    public Boolean noValidMoves(){
+        return false;
+    }
+    
     public void newGame(){
         gui.newGame();
         this.currentTurn = 0;
     }
     
-    public void startGame(){
+    public void startGame(String Player1, String Player2){
+        this.playerOne = new Player(1,Player1);
+        this.playerTwo = new Player(2,Player2);
         this.currentTurn = 1;
         gui.setPlayer();
     }
@@ -80,7 +84,10 @@ public class Game {
             }else{
                 this.switchPlayer(); 
             }
-        }       
+            if(this.noValidMoves()){
+                resetField();
+            }            
+        }   
     }
     
     private void resetField(){
@@ -113,7 +120,7 @@ public class Game {
     private Boolean checkDiagonals(Integer x, Integer y){
         return false;
     }
-    
+        
     public Integer getCurrentFieldStatus(Integer x, Integer y){
         return field[x][y];
     }

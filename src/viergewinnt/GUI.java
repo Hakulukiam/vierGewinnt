@@ -262,9 +262,11 @@ public class GUI extends Applet implements WindowListener{
             inputPanel.setVisible(false);
             startGameButton.setVisible(false);
             resetGameButton.setVisible(true);
-            upperLabel.setText("Score:");
-            this.updateScore();
-            game.startGame();            
+            upperLabel.setText("Score:");                      
+            game.startGame(playerOneName.getText(),playerTwoName.getText());
+            p1.setText(this.game.getPlayerOne().getName());
+            p2.setText(this.game.getPlayerTwo().getName());
+            this.updateScore();              
         });
 
         closeButton.addActionListener((ActionEvent e) -> {
