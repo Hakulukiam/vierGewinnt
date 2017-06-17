@@ -103,9 +103,10 @@ public class VierGewinnt extends Applet implements WindowListener {
     for(int i=0; i<field.length; i++) {
         for(int j=0; j<field[i].length; j++) {
            field[i][j] = new JButton();
-           field[i][j].setBackground(Color.WHITE);            
+           field[i][j].setBackground(Color.WHITE);              
            gbc.gridx = i;
            gbc.gridy = j;
+           playPanel.add(field[i][j],gbc);
            final int y = j;
            final int x = i;
            field[i][j].addActionListener((ActionEvent e) -> {
