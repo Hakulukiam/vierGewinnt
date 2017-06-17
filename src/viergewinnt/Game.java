@@ -54,24 +54,34 @@ public class Game {
         if(isValidMove()){
             field[x][y] = this.currentTurn;
             gui.updateGUI();
-            this.switchPlayer();
+            if(this.hasWon(x,y)){
+                if(currentTurn == 1){
+                    playerOne.setScore(playerOne.getScore() + 1);
+                }else if(currentTurn == 2){
+                    playerTwo.setScore(playerTwo.getScore() + 1);
+                }
+            }else{
+                this.switchPlayer(); 
+            }
         }       
     }
        
-    public Integer hasWon(Integer[] move){
-        return 1;
+    public Boolean hasWon(Integer x, Integer y){
+        if(this.checkRows() == true)return true;
+        if(this.checkCols() == true)return true;
+        return this.checkDiagonals() == true;
     }
     
-    private Integer checkRows(){
-        return 1;
+    private Boolean checkRows(){
+        return true;
     }
     
-    private Integer checkCols(){
-        return 1;
+    private Boolean checkCols(){
+        return true;
     }
     
-    private Integer checkDiagonals(){
-        return 1;
+    private Boolean checkDiagonals(){
+        return true;
     }
     
     public Integer getCurrentFieldStatus(Integer x, Integer y){
