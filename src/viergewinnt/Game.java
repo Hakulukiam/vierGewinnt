@@ -73,11 +73,13 @@ public class Game {
     
     public void makeMove(Integer x, Integer y){
         y = 5;
-        for(int i = 0; i < 6; i++) {
-            if(field[x][i] != 0) {
-                y = i-1;
+        for(int i = 5; i >= 0; i--) {
+            if(field[x][i] == 0) {
+                y = i;
+                break;
             }
-        }        
+        } 
+        System.out.println("x: "+x+" y: "+y);
         if(isValidMove(x, y) && this.currentTurn != 0){
             field[x][y] = this.currentTurn;
             gui.updateGUI();
