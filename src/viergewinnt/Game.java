@@ -145,12 +145,13 @@ public class Game {
     }
     
     private Boolean checkDiagonals(Integer x, Integer y){
-        int d = 0;       
+        int d = 0;     
+        //Left to Right
         if(x-y <= 0) {
-            x = 0;
-            y = (x-y) * (-1); 
-            for(int i = 0; i < 5; i++) {
-               if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {                
+            y = 0;
+            x = (x-y) * (-1); 
+            for(int i = 0; i <= 5; i++) {
+               if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {
                     if(field[x+i][y+i].equals(currentTurn)) {
                         d++;
                     }else{
@@ -163,8 +164,8 @@ public class Game {
         }else{
             x = x-y;
             y = 0;
-            for(int i = 0; i < 5; i++) {
-               if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {                              
+            for(int i = 0; i <= 5; i++) {
+               if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {            
                     if(field[x+i][y+i].equals(currentTurn)) {
                         d++;
                     }else{
@@ -175,11 +176,17 @@ public class Game {
                 }   
             }                    
         }
+        if(d >= 4){
+            return true;
+        }else{
+            d = 0;
+        }
+        //Right to Left 
         if(x+y >= 6){
            x = 6;
            y = (x+y) - 6;
-           for(int i = 0; i < 5; i++) {
-                if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {           
+           for(int i = 0; i <= 5; i++) {
+                if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {           
                     if(field[x-i][y+i].equals(currentTurn)) {
                         d++;
                     }else{
@@ -191,9 +198,12 @@ public class Game {
             }
         }else{
             x = x+y;
-            y = 6;
-            for(int i = 0; i < 5; i++) {
-                if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {  
+            y = 0;
+            for(int i = 0; i <= 5; i++) {
+                if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {  
+                     System.out.println("i: "+i);
+                     System.out.println("x: "+(x+i));
+                     System.out.println("y: "+(y+i));
                     if(field[x-i][y+i].equals(currentTurn)) {
                         d++;
                     }else{
@@ -204,9 +214,9 @@ public class Game {
                 }
             }
         }
-            if(d >= 4){
-                return true;
-            }    
+        if(d >= 4){
+            return true;
+        }    
         return false;
     }
         
