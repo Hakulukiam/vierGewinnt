@@ -16,14 +16,14 @@
             if(x-y <= 0) {
                 x = 0;
                 y = (x-y) * (-1); 
-                if (x+i < 0 || x+i >= SIZE[0] || y+i < 0 || y+i >= SIZE[1]) {
-                    break;
-                }else{
+                if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {
                     if(field[x+i][y+i].equals(currentTurn)) {
                         d++;
                     }else{
                         d = 0;
                     }
+                }else{
+                    break;
                 }           
             }  
             if(d >= 4){
