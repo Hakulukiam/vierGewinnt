@@ -72,6 +72,12 @@ public class Game {
     }
     
     public void makeMove(Integer x, Integer y){
+        y = 5;
+        for(int i = 0; i < 6; i++) {
+            if(field[x][i] != 0) {
+                y = i-1;
+            }
+        }        
         if(isValidMove(x, y) && this.currentTurn != 0){
             field[x][y] = this.currentTurn;
             gui.updateGUI();
@@ -182,7 +188,6 @@ public class Game {
         }
         for(int i = 0; i <= 5; i++) {
             if (SIZE[0] > rel_x-i && SIZE[1] > rel_y+i && y+i >= 0 && rel_x-i >= 0) {  
-                System.out.println("x: "+(rel_x-i)+" | y: "+(rel_y+i)+" -> "+field[rel_x-i][rel_y+i]+" == "+currentTurn);
                 if(field[rel_x-i][rel_y+i].equals(currentTurn)) {
                     d++;
                 }else{
