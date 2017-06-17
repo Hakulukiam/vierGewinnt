@@ -78,11 +78,11 @@ public class Game {
         return field[x][y];
     }
     
-    private Integer switchPlayer(){
+    private void switchPlayer(){
         if(this.currentTurn == 1){
-            return 2;           
+            this.currentTurn = 2;           
         }else{
-            return 1;
+            this.currentTurn = 1;
         }
     }
     
