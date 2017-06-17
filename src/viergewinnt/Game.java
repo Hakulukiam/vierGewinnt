@@ -145,25 +145,68 @@ public class Game {
     }
     
     private Boolean checkDiagonals(Integer x, Integer y){
-        int d = 0;
-        for(int i = 0; i < 5; i++) {
-            if(x-y <= 0) {
-                x = 0;
-                y = (x-y) * (-1); 
-                if(field[x+i][y+i] != null){
+        int d = 0;       
+        if(x-y <= 0) {
+            x = 0;
+            y = (x-y) * (-1); 
+            for(int i = 0; i < 5; i++) {
+               if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {                
+                    if(field[x+i][y+i].equals(currentTurn)) {
+                        d++;
+                    }else{
+                        d = 0;
+                    }              
+                }else{ 
+                   break;
+               }        
+            }                                                                               
+        }else{
+            x = x-y;
+            y = 0;
+            for(int i = 0; i < 5; i++) {
+               if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {                              
                     if(field[x+i][y+i].equals(currentTurn)) {
                         d++;
                     }else{
                         d = 0;
                     }
                 }else{
+                   break;
+                }   
+            }                    
+        }
+        if(x+y >= 6){
+           x = 6;
+           y = (x+y) - 6;
+           for(int i = 0; i < 5; i++) {
+                if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {           
+                    if(field[x-i][y+i].equals(currentTurn)) {
+                        d++;
+                    }else{
+                        d = 0;
+                    }                
+                }else{
                     break;
-                }          
-            }  
+                }        
+            }
+        }else{
+            x = x+y;
+            y = 6;
+            for(int i = 0; i < 5; i++) {
+                if (SIZE[0] >= x+i && SIZE[1] >= y+i && y+i >= 0 && x+i >= 0) {  
+                    if(field[x-i][y+i].equals(currentTurn)) {
+                        d++;
+                    }else{
+                        d = 0;
+                    }    
+                }else{
+                    break;
+                }
+            }
+        }
             if(d >= 4){
                 return true;
-            }                                                                            
-        }   
+            }    
         return false;
     }
         
