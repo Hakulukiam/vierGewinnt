@@ -18,11 +18,10 @@ public class test {
               d++;
            }else{
               d = 0;
-           }              
-        }                                            
+           }  
            if(d >= 4){
                return true;
-           }else{
-               return false;
-           }                              
+            }                                                                            
+        }   
+           return false;
     }
