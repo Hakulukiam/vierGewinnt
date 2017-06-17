@@ -155,8 +155,7 @@ public class Game {
             y = 0;                                    
         }
         for(int i = 0; i <= 5; i++) {
-           if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {     
-                System.out.println("x: "+(x+i)+" | y: "+(y+i)+" -> "+field[x+i][y+i]+" == "+currentTurn);
+           if (SIZE[0] > x+i && SIZE[1] > y+i && y+i >= 0 && x+i >= 0) {                 
                 if(field[x+i][y+i].equals(currentTurn)) {
                     d++;
                 }else{
@@ -171,42 +170,29 @@ public class Game {
         }    
 
         //Right to Left 
-        
-        
-        
-        /*
-        
         if(x+y >= 6){
-           x = 6;
-           y = (x+y) - 6;
-           for(int i = 0; i <= 5; i++) {
-                if (SIZE[0] > x-i && SIZE[1] > y+i && y+i >= 0 && x-i >= 0) {           
-                    if(field[x-i][y+i].equals(currentTurn)) {
-                        d++;
-                    }else{
-                        d = 0;
-                    }                
-                }else{
-                    break;
-                }        
-            }
+            x = 6;
+            y = (x+y) - 6;           
         }else{
             x = x+y;
-            y = 0;
-            for(int i = 0; i <= 5; i++) {
-                if (SIZE[0] > x+i && SIZE[1] > y-i && y-i >= 0 && x+i >= 0) {  
-                    if(field[x-i][y+i].equals(currentTurn)) {
-                        d++;
-                    }else{
-                        d = 0;
-                    }    
-                }else{
-                    break;
-                }
-            }
+            y = 0; 
         }
-*/
-        return d >= 4;
+        for(int i = 0; i <= 5; i++) {
+            if (SIZE[0] > x-i && SIZE[1] > y+i && y+i >= 0 && x-i >= 0) {  
+                System.out.println("x: "+(x-i)+" | y: "+(y+i)+" -> "+field[x-i][y+i]+" == "+currentTurn);
+                if(field[x-i][y+i].equals(currentTurn)) {
+                    d++;
+                }else{
+                    d = 0;
+                }                
+            }else{
+                break;
+            } 
+            if(d >= 4){
+                return true;
+            }
+        }       
+        return false;
     }
         
     public Integer getCurrentFieldStatus(Integer x, Integer y){
