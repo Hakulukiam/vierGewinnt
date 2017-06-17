@@ -54,6 +54,7 @@ public class Game {
         if(isValidMove()){
             field[x][y] = this.currentTurn;
             gui.updateGUI();
+            this.switchPlayer();
         }       
     }
        
