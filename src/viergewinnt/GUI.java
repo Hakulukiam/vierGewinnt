@@ -247,13 +247,13 @@ public class GUI extends Applet implements WindowListener{
     
     private void addEvents(){
         newGameButton.addActionListener((ActionEvent e) -> {
-           infoPanel.setVisible(false);
-           inputPanel.setVisible(true);
-           newGameButton.setVisible(false);
-           resetGameButton.setVisible(false);
-           startGameButton.setVisible(true);
-           upperLabel.setText("Vier Gewinnt!");
-           game.newGame(); 
+            infoPanel.setVisible(false);
+            inputPanel.setVisible(true);
+            newGameButton.setVisible(false);
+            resetGameButton.setVisible(false);
+            startGameButton.setVisible(true);
+            upperLabel.setText("Vier Gewinnt!");            
+            game.newGame(); 
         });
         
         startGameButton.addActionListener((ActionEvent e) -> {
@@ -319,11 +319,7 @@ public class GUI extends Applet implements WindowListener{
             }
         }    
     }
-    
-    public void newGame(){
         
-    }
-    
     public void setPlayer(){
         if(this.game.getCurrentTurn() == 1){
             turnLabel.setText(game.getPlayerOne().getName()+" ist am Zug");

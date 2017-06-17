@@ -47,16 +47,20 @@ public class Game {
         this.playerTwo = playerTwo;
     }
     
-    public Boolean isValidMove(){
-        return true;
+    public Boolean isValidMove(Integer x, Integer y){
+        return field[x][0] == 0;
     }
     
     public Boolean noValidMoves(){
-        return false;
+        for(int i = 0; i < 7; i++) {
+            if(field[i][0] == 0)return false;
+        }
+        return true;
     }
     
     public void newGame(){
-        gui.newGame();
+        this.resetField();
+        gui.updateGUI();
         this.currentTurn = 0;
     }
     
@@ -68,7 +72,7 @@ public class Game {
     }
     
     public void makeMove(Integer x, Integer y){
-        if(isValidMove() && this.currentTurn != 0){
+        if(isValidMove(x, y) && this.currentTurn != 0){
             field[x][y] = this.currentTurn;
             gui.updateGUI();
             if(this.hasWon(x,y)){
@@ -86,6 +90,7 @@ public class Game {
             }
             if(this.noValidMoves()){
                 resetField();
+                gui.updateGUI();
             }            
         }   
     }
