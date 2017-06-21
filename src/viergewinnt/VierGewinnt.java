@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package viergewinnt;
-
-public class VierGewinnt{
+/**
+ * 
+ * @author Marcel Clemeur 4840095 Gruppe 2C
+ */
+public class VierGewinnt {
     
-    public static Game viergewinnt;
-
+    private static Game viergewinnt;
+    /**
+     * 
+     * @param args wird uebergeben
+     */
     public static void main(java.lang.String[] args) {
         
         viergewinnt = new Game();
