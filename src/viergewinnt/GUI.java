@@ -40,7 +40,8 @@ public class GUI extends Applet implements WindowListener {
     private static Label scorep1; 
     private static Label scorep2; 
     private static Label p1; 
-    private static Label p2; 
+    private static Label p2;
+    private static Label Timer; 
     private static JButton newGameButton;
     private static JButton startGameButton;
     private static JButton resetGameButton;
@@ -133,6 +134,11 @@ public class GUI extends Applet implements WindowListener {
         scorep2.setAlignment(Label.CENTER);
         scorep2.setFont(new Font("Tahoma", Font.BOLD, 20));
         scorep2.setForeground(Color.YELLOW);
+        
+        Timer = new Label();   
+        Timer.setAlignment(Label.CENTER);
+        Timer.setFont(new Font("Tahoma", Font.BOLD, 20));
+        Timer.setForeground(Color.BLACK);
 
         newGameButton = new JButton("Neues Spiel");
         newGameButton.setBackground(new Color(255, 140, 0));
@@ -206,6 +212,10 @@ public class GUI extends Applet implements WindowListener {
         gbc.gridx = 0;
         gbc.gridy = 3; 
         infoPanel.add(turnLabel, gbc);  
+        gbc.gridwidth = 3;
+        gbc.gridx = 0;
+        gbc.gridy = 4; 
+        infoPanel.add(Timer, gbc);  
         
         
         //Button Panel
@@ -319,6 +329,15 @@ public class GUI extends Applet implements WindowListener {
             }
         }    
     }
+    
+    public void updateTimer(Integer time, Integer avalaible){
+        int seconds = (int) (time / 1000) % 60 ;
+        int milisec = (int) (time - seconds*1000) / 10;
+        int a_seconds = (int) (avalaible / 1000) % 60 ;
+        int a_milisec = (int) (avalaible - a_seconds*1000) / 10;
+        Timer.setText(seconds+ ":" +milisec+ " / "+ a_seconds +":"+ a_milisec);
+    }
+    
     /**
      * Hier wird ausgegeben welcher Spieler am Zug ist
      */

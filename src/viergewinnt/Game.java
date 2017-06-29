@@ -15,6 +15,7 @@ public class Game {
     private final GUI gui;
     private final Integer[][] field;
     private final Integer[] size = {7, 6};
+    private TurnThread Timer;
 
     public Integer[] getSize() {
         return size;
@@ -86,7 +87,9 @@ public class Game {
         this.playerOne = new Player(1, playerEins);
         this.playerTwo = new Player(2, playerZwei);
         this.currentTurn = 1;
+        Timer = new TurnThread(this);       
         gui.setPlayer();
+        Timer.start();
     }
     /**
      * Hier wird der Zug gesetzt und ueberprueft ob dieser zum Sieg fuehrt
@@ -266,15 +269,24 @@ public class Game {
     public Integer getCurrentFieldStatus(Integer x, Integer y) {
         return field[x][y];
     }
+    
+    public void updateTurnTime(Integer time, Integer avaliable){
+        this.gui.updateTimer(time,avaliable);
+    }
+    
     /**
      * Hier findet der Wechsel zwischen den Spielern statt
      */
-    private void switchPlayer() {
+    public void switchPlayer() {
+        Timer.interrupt();        
         if (this.currentTurn == 1) {
             this.currentTurn = 2;           
         } else {
             this.currentTurn = 1;
         }
         gui.setPlayer();
+        System.out.println(Timer.changeturn());  
+        Timer = new TurnThread(this, Timer.changeturn());
+        Timer.start();
     }  
 }
