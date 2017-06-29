@@ -76,6 +76,7 @@ public class Game {
     public void newGame() {
         this.resetField();
         gui.updateGUI();
+        Timer.interrupt();        
         this.currentTurn = 0;
     }
     /**
@@ -140,10 +141,13 @@ public class Game {
      */
     public void reset() {
         this.resetField();
+        Timer.interrupt();
+        Timer = new TurnThread(this);        
         playerOne.setScore(0);
         playerTwo.setScore(0);
         gui.updateScore();
         gui.updateGUI();
+        Timer.start();
     }
     /**
      * Hier wird geprueft ob die Runde gewonnen ist
