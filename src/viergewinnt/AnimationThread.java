@@ -25,16 +25,15 @@ public class AnimationThread extends Thread {
     }
 
     @Override
-    public void run(){                   
+    public void run(){       
+        int d = 0;
         do{
-            try {
-                int d = 0;
+            try {                
                 for (int i = 0; i < 6; i++) {
                     if (game.getCurrentFieldStatus(x, i) != 0) {
                         d++;
                     } else {
-                        if(x-1 >= 0)gui.getFieldElement(x-1, i).setBackground(Color.WHITE);
-                        gui.getFieldElement(x, i).setBackground(Color.WHITE);
+                        if(i-1 >= 0)gui.getFieldElement(x, i-1).setBackground(Color.WHITE);
                         switch (turn) {
                             case 1:
                                 gui.getFieldElement(x, i).setBackground(Color.RED);
@@ -43,18 +42,15 @@ public class AnimationThread extends Thread {
                                 gui.getFieldElement(x, i).setBackground(Color.YELLOW);
                                 break;
                         }
-                    }  
-                    if (d >= 3) { //Try 3 Times
-                        Thread.currentThread().interrupt();
-                    }                                                                            
-                }
-                Thread.sleep(500); 
+                    }
+                    Thread.sleep(500); 
+                }                
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
             if(isInterrupted()){
                 break;
             }  
-        }while(true);
+        }while(true && d >= 3);
     }    
 }
