@@ -1,8 +1,5 @@
 package viergewinnt;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * 
  * @author Marcel Clemeur 4840095 Gruppe 2C

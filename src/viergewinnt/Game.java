@@ -1,6 +1,7 @@
 
 package viergewinnt;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -16,6 +17,7 @@ public class Game {
     private final Integer[][] field;
     private final Integer[] size = {7, 6};
     private TurnThread Timer;
+    static ArrayList<AnimationThread> Animation;
 
     public Integer[] getSize() {
         return size;
