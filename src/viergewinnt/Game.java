@@ -110,7 +110,7 @@ public class Game {
         } 
         if (isValidMove(x, y) && this.currentTurn != 0) {
             field[x][y] = this.currentTurn;
-            AnimationThread thread = new AnimationThread(gui, this, currentTurn, x);
+            AnimationThread thread = new AnimationThread(gui, this, currentTurn, x, y);
             thread.start();
             Animation.add(thread);
             //gui.updateGUI();
@@ -287,6 +287,10 @@ public class Game {
      */    
     public Integer getCurrentFieldStatus(Integer x, Integer y) {
         return field[x][y];
+    }
+    
+    public void setCurrentFieldStatus(Integer x, Integer y, Integer val) {
+        field[x][y] = val;
     }
     
     public void updateTurnTime(Integer time, Integer avaliable){
