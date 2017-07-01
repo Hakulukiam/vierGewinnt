@@ -28,9 +28,9 @@ public class AnimationThread extends Thread {
 
     @Override
     public void run(){
-        do{            
+        do{          
             try {
-                if(game.getCurrentFieldStatus(x, 0) == 0){
+                if(game.getCurrentFieldStatus(x, 0) == 0 || y == 0){
                     for (int i = 0; i < 6; i++) {                    
                         if(i == 0 && y != 0){
                             game.setCurrentFieldStatus(x, 0, 3);
