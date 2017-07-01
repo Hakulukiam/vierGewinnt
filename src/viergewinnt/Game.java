@@ -17,7 +17,7 @@ public class Game {
     private final Integer[][] field;
     private final Integer[] size = {7, 6};
     private TurnThread Timer;
-    private ArrayList<AnimationThread> Animation;
+    private ArrayList<AnimationThread> Animation = new ArrayList();
 
     public Integer[] getSize() {
         return size;
@@ -77,8 +77,8 @@ public class Game {
      */
     public void newGame() {
         this.resetField();
-        gui.updateGUI();
-        Timer.interrupt();        
+        gui.updateGUI();        
+        if(Timer != null)Timer.interrupt();        
         this.currentTurn = 0;
     }
     /**
@@ -308,7 +308,6 @@ public class Game {
             this.currentTurn = 1;
         }
         gui.setPlayer();
-        System.out.println(Timer.changeturn());  
         Timer = new TurnThread(this, Timer.changeturn());
         Timer.start();
     }  

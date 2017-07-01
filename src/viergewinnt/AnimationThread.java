@@ -19,6 +19,7 @@ public class AnimationThread extends Thread {
     private final Integer y;    
     
     public AnimationThread(GUI gui, Game game,Integer turn, Integer x, Integer y) {
+        System.out.println("Ziel: X:"+x+" Y:"+y);
         this.gui = gui;
         this.game = game;
         this.turn = turn;
@@ -27,49 +28,32 @@ public class AnimationThread extends Thread {
     }
 
     @Override
-    public void run(){       
-        int d = 0;
+    public void run(){
         do{
-            try {                
-                for (int i = 0; i < 6; i++) {
-                    if(game.getCurrentFieldStatus(x, i) == 3){              
-                        Thread.sleep(500);   
-                    }else{
-                        if (game.getCurrentFieldStatus(x, i) != 0) {
-                            if(i == y){
-                                if(i-1 >= 0){
-                                    gui.getFieldElement(x, i-1).setBackground(Color.WHITE);
-                                    game.setCurrentFieldStatus(x, i-1, 0);
-                                }
-                                game.setCurrentFieldStatus(x, i, game.getCurrentFieldStatus(x, i));
-                                switch (turn) {
-                                case 1:
-                                    gui.getFieldElement(x, i).setBackground(Color.RED);
-                                    break;                    
-                                case 2:
-                                    gui.getFieldElement(x, i).setBackground(Color.YELLOW);
-                                    break;
-                                }
-                            }
-                            d++;                            
-                        } else {
-                            if(i-1 >= 0){
-                                gui.getFieldElement(x, i-1).setBackground(Color.WHITE);
-                                game.setCurrentFieldStatus(x, i-1, 0);
-                            }
-                            game.setCurrentFieldStatus(x, i, 3);
-                            switch (turn) {
-                                case 1:
-                                    gui.getFieldElement(x, i).setBackground(Color.RED);
-                                    break;                    
-                                case 2:
-                                    gui.getFieldElement(x, i).setBackground(Color.YELLOW);
-                                    break;
-                            }
+            try {
+                if(game.getCurrentFieldStatus(x, 0) == 0){
+                    for (int i = 0; i < 6; i++) {                    
+                        if(i == 0 && y != 0){
+                            game.setCurrentFieldStatus(x, 0, 3);
+                        }                   
+                        if(i-1 >= 0)gui.getFieldElement(x, i-1).setBackground(Color.WHITE);
+                        switch (turn) {
+                        case 1:
+                            gui.getFieldElement(x, i).setBackground(Color.RED);
+                            break;                    
+                        case 2:
+                            gui.getFieldElement(x, i).setBackground(Color.YELLOW);
+                            break;
                         }
-                        Thread.sleep(500);   
+                        if(i == y){
+                            if(i != 0){
+                                game.setCurrentFieldStatus(x, 0, 0);   
+                            }    
+                            Thread.currentThread().interrupt();
+                        }else{
+                            Thread.sleep(500);
+                        }                            
                     }
-                    
                 }                
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
@@ -77,6 +61,6 @@ public class AnimationThread extends Thread {
             if(isInterrupted()){
                 break;
             }  
-        }while(true && d >= 3);
+        }while(true);
     }    
 }
