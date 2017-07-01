@@ -17,7 +17,7 @@ public class Game {
     private final Integer[][] field;
     private final Integer[] size = {7, 6};
     private TurnThread Timer;
-    static ArrayList<AnimationThread> Animation;
+    private ArrayList<AnimationThread> Animation;
 
     public Integer[] getSize() {
         return size;
@@ -110,7 +110,10 @@ public class Game {
         } 
         if (isValidMove(x, y) && this.currentTurn != 0) {
             field[x][y] = this.currentTurn;
-            gui.updateGUI();
+            AnimationThread thread = new AnimationThread(gui, this, currentTurn, x);
+            thread.start();
+            Animation.add(thread);
+            //gui.updateGUI();
             if (this.hasWon(x, y)) {
                 if (currentTurn == 1) {
                     playerOne.setScore(playerOne.getScore() + 1);
@@ -119,13 +122,15 @@ public class Game {
                 }
                 gui.updateScore();
                 this.resetField();
+                this.resetAnimation();
                 gui.updateGUI();
                 this.switchPlayer(); 
             } else {
                 this.switchPlayer(); 
             }
             if (this.noValidMoves()) {
-                resetField();
+                this.resetField();
+                this.resetAnimation();
                 gui.updateGUI();
             }            
         }   
@@ -136,8 +141,16 @@ public class Game {
     private void resetField() {
         for (Integer[] row: this.field) {
             Arrays.fill(row, 0);
-        }
+        }        
     }
+    
+    private void resetAnimation(){
+        for(int i=0; i < Animation.size(); i++){
+            Animation.get(i).interrupt();    
+        }
+        Animation.clear();  
+    }
+    
     /**
      * Hier wird das Spielfeld und die scores/Gui neu aufgebaut
      */

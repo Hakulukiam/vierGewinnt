@@ -86,7 +86,7 @@ public class GUI extends Applet implements WindowListener {
         infoPanel = new JPanel();
         infoPanel.setLayout(new GridBagLayout());      
         infoPanel.setSize(240, 300);
-        infoPanel.setLocation(700, 0);
+        infoPanel.setLocation(700, 5);
         infoPanel.setVisible(false);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());      
@@ -328,6 +328,10 @@ public class GUI extends Applet implements WindowListener {
                 }                         
             }
         }    
+    }
+    
+    public JButton getFieldElement(Integer x, Integer y){
+        return field[x][y];
     }
     
     public void updateTimer(Integer time, Integer avalaible){
