@@ -48,10 +48,11 @@ public class AnimationThread extends Thread {
                             break;
                         }
                         if(i == y){
+                            Thread.currentThread().interrupt();
                             if(i != 0){
                                 game.setCurrentFieldStatus(x, 0, 0);   
-                            }    
-                            Thread.currentThread().interrupt();
+                            }
+                            break;
                         }else{
                             Thread.sleep(500);
                         }                            
