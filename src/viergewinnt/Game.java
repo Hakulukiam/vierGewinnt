@@ -58,7 +58,7 @@ public class Game {
      * @return gibt das Spielfeld zurueck
      */
     public Boolean isValidMove(Integer x, Integer y) {
-        return field[x][0] == 0;
+        return field[x][0] == 0 || field[x][0] == 3;
     }
     /**
      * 

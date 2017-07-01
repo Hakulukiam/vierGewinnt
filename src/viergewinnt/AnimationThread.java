@@ -21,7 +21,6 @@ public class AnimationThread extends Thread {
     private final Integer y;    
     
     public AnimationThread(GUI gui, Game game,Integer turn, Integer x, Integer y) {
-        System.out.println("Ziel: X:"+x+" Y:"+y);
         this.gui = gui;
         this.game = game;
         this.turn = turn;
