@@ -6,8 +6,6 @@
 package viergewinnt;
 
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -36,15 +34,15 @@ public class AnimationThread extends Thread {
                     for (int i = 0; i < 6; i++) {                    
                         if(i == 0 && y != 0){
                             game.setCurrentFieldStatus(x, 0, 3);
-                        }                   
+                        }            
                         if(i-1 >= 0)gui.getFieldElement(x, i-1).setBackground(Color.WHITE);
                         switch (turn) {
-                        case 1:
-                            gui.getFieldElement(x, i).setBackground(Color.RED);
-                            break;                    
-                        case 2:
-                            gui.getFieldElement(x, i).setBackground(Color.YELLOW);
-                            break;
+                            case 1:
+                                gui.getFieldElement(x, i).setBackground(Color.RED);
+                                break;                    
+                            case 2:
+                                gui.getFieldElement(x, i).setBackground(Color.YELLOW);
+                                break;
                         }
                         if(i == y){
                             Thread.currentThread().interrupt();

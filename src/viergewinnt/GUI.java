@@ -339,6 +339,10 @@ public class GUI extends Applet implements WindowListener {
         int milisec = (int) (time - seconds*1000) / 10;
         int a_seconds = (int) (avalaible / 1000) % 60 ;
         int a_milisec = (int) (avalaible - a_seconds*1000) / 10;
+        if(a_milisec == 60000){
+            a_seconds = 60;
+            a_milisec = 0;
+        }
         Timer.setText(seconds+ ":" +milisec+ " / "+ a_seconds +":"+ a_milisec);
     }
     

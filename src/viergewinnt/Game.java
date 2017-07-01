@@ -76,6 +76,7 @@ public class Game {
      * 
      */
     public void newGame() {
+        this.resetAnimation();
         this.resetField();
         gui.updateGUI();        
         if(Timer != null)Timer.interrupt();        
@@ -90,6 +91,7 @@ public class Game {
         this.playerOne = new Player(1, playerEins);
         this.playerTwo = new Player(2, playerZwei);
         this.currentTurn = 1;
+        this.resetAnimation();
         Timer = new TurnThread(this);       
         gui.setPlayer();
         Timer.start();
