@@ -6,6 +6,8 @@
 package viergewinnt;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +31,7 @@ public class AnimationThread extends Thread {
 
     @Override
     public void run(){
-        do{
+        do{            
             try {
                 if(game.getCurrentFieldStatus(x, 0) == 0){
                     for (int i = 0; i < 6; i++) {                    

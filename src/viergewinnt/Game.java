@@ -121,16 +121,16 @@ public class Game {
                     playerTwo.setScore(playerTwo.getScore() + 1);
                 }
                 gui.updateScore();
-                this.resetField();
                 this.resetAnimation();
+                this.resetField();                
                 gui.updateGUI();
                 this.switchPlayer(); 
             } else {
                 this.switchPlayer(); 
             }
             if (this.noValidMoves()) {
-                this.resetField();
                 this.resetAnimation();
+                this.resetField();                
                 gui.updateGUI();
             }            
         }   
